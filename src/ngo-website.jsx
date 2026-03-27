@@ -292,16 +292,24 @@ const content = {
 function Preloader({ done }) {
   return (
     <div style={{
-      position: "fixed", inset: 0, zIndex: 9999,
+      position: "fixed", 
+      inset: 0, 
+      zIndex: 9999,
       background: "linear-gradient(135deg, #0f4c35 0%, #1a7a52 50%, #0d3b28 100%)",
-      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+      display: "flex", 
+      flexDirection: "column", 
+      alignItems: "center", 
+      justifyContent: "center",
       transition: "opacity 0.8s ease, transform 0.8s ease",
-      opacity: done ? 0 : 1, pointerEvents: done ? "none" : "all",
+      opacity: done ? 0 : 1, 
+      pointerEvents: done ? "none" : "all",
       transform: done ? "translateY(-100%)" : "translateY(0)",
     }}>
       <div style={{ textAlign: "center" }}>
         <div style={{
-          width: 80, height: 80, borderRadius: "50%",
+          width: 80, 
+          height: 80, 
+          borderRadius: "50%",
           border: "3px solid rgba(255,255,255,0.2)",
           borderTop: "3px solid #f0c040",
           animation: "spin 1s linear infinite",
@@ -316,7 +324,10 @@ function Preloader({ done }) {
         <div style={{ marginTop: 30, display: "flex", gap: 8, justifyContent: "center" }}>
           {[0,1,2,3,4].map(i => (
             <div key={i} style={{
-              width: 8, height: 8, borderRadius: "50%", background: "#f0c040",
+              width: 8, 
+              height: 8, 
+              borderRadius: "50%", 
+              background: "#f0c040",
               animation: `bounce 1.2s ease-in-out ${i * 0.15}s infinite`,
             }} />
           ))}
@@ -397,6 +408,106 @@ export default function App() {
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
         .nav-link { transition: color 0.2s; cursor: pointer; }
         .nav-link:hover { color: ${D.accent}!important; }
+        
+        /* Responsive Styles */
+        @media (max-width: 900px) {
+          .desktop-nav { display: none !important; }
+          .hamburger { display: flex !important; align-items: center; justify-content: center; }
+        }
+        
+        @media (max-width: 768px) {
+          .hero-grid, [style*="grid-template-columns: 1fr 1fr"]:not(.no-resp) { 
+            grid-template-columns: 1fr !important; 
+            text-align: center;
+          }
+          .footer-grid, [style*="grid-template-columns: 2fr 1fr 1fr 1fr"] { 
+            grid-template-columns: 1fr 1fr !important; 
+            gap: 30px !important;
+          }
+          .contact-grid, [style*="grid-template-columns: 1fr 1.2fr"] { 
+            grid-template-columns: 1fr !important; 
+          }
+          .steps-grid, [style*="grid-template-columns: repeat(4, 1fr)"] { 
+            grid-template-columns: 1fr 1fr !important; 
+          }
+          .steps-grid div:last-child {
+            grid-column: span 2;
+          }
+          .about-grid, [style*="grid-template-columns: 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+          }
+          .villages-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .team-grid {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+          }
+          .hero-text {
+            text-align: center;
+          }
+          .hero-text p {
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .hero-buttons {
+            justify-content: center;
+          }
+          .trust-badges {
+            justify-content: center;
+          }
+          section {
+            padding: 60px 20px !important;
+          }
+          .loan-cards {
+            grid-template-columns: 1fr !important;
+          }
+          .impact-cards {
+            grid-template-columns: 1fr !important;
+          }
+          .stats-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .steps-grid, [style*="grid-template-columns: repeat(4, 1fr)"],
+          [style*="grid-template-columns: repeat(4, 1fr)"] {
+            grid-template-columns: 1fr !important;
+          }
+          .footer-grid, [style*="grid-template-columns: 2fr 1fr 1fr 1fr"] {
+            grid-template-columns: 1fr !important;
+            text-align: center;
+          }
+          .btn-primary, button:not(.hamburger):not(.dark-toggle):not(.lang-toggle) {
+            width: 100%;
+          }
+          .hero-buttons {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .trust-badges {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .trust-badges div {
+            text-align: center;
+          }
+          h1 {
+            font-size: 1.8rem !important;
+          }
+          h2 {
+            font-size: 1.5rem !important;
+          }
+          .stats-container {
+            grid-template-columns: 1fr !important;
+          }
+          .contact-info {
+            padding: 20px !important;
+          }
+          .contact-form {
+            padding: 25px !important;
+          }
+        }
       `}</style>
 
       <Preloader done={loaded} />
@@ -410,7 +521,7 @@ export default function App() {
         transition: "all 0.4s ease",
         padding: scrolled ? "12px 0" : "20px 0",
       }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12, cursor: "pointer" }} onClick={scrollTop}>
             <div style={{
               width: 44, height: 44, borderRadius: 12,
@@ -426,19 +537,20 @@ export default function App() {
           </div>
 
           {/* Desktop Nav */}
-          <div style={{ display: "flex", gap: 4, alignItems: "center" }} className="desktop-nav">
+          <div className="desktop-nav" style={{ display: "flex", gap: 4, alignItems: "center", flexWrap: "wrap" }}>
             {t.nav.map((item, i) => (
               <span key={i} className="nav-link" onClick={() => scrollTo(sectionIds[i])} style={{
                 padding: "8px 14px", fontSize: 13, fontWeight: 600,
                 color: activeNav === i ? D.accent : D.text, borderRadius: 8,
                 background: activeNav === i ? `${D.accent}18` : "transparent",
+                cursor: "pointer",
               }}>{item}</span>
             ))}
           </div>
 
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             {/* Lang Toggle */}
-            <button onClick={() => setLang(l => l === "en" ? "bn" : "en")} style={{
+            <button onClick={() => setLang(l => l === "en" ? "bn" : "en")} className="lang-toggle" style={{
               background: `${D.accent}22`, border: `1px solid ${D.accent}44`,
               color: D.accent, padding: "7px 14px", borderRadius: 20,
               cursor: "pointer", fontSize: 13, fontWeight: 700,
@@ -447,7 +559,7 @@ export default function App() {
               {lang === "en" ? "বাংলা" : "English"}
             </button>
             {/* Dark Toggle */}
-            <button onClick={() => setDark(d => !d)} style={{
+            <button onClick={() => setDark(d => !d)} className="dark-toggle" style={{
               background: D.surface, border: `1px solid ${D.border}`,
               color: D.text, width: 38, height: 38, borderRadius: "50%",
               cursor: "pointer", fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center",
@@ -456,11 +568,12 @@ export default function App() {
               {dark ? "☀️" : "🌙"}
             </button>
             {/* Hamburger */}
-            <button onClick={() => setMenuOpen(m => !m)} style={{
+            <button onClick={() => setMenuOpen(m => !m)} className="hamburger" style={{
               background: "none", border: `1px solid ${D.border}`,
               color: D.text, width: 38, height: 38, borderRadius: 8,
               cursor: "pointer", fontSize: 18, display: "none",
-            }} className="hamburger">☰</button>
+              alignItems: "center", justifyContent: "center",
+            }}>☰</button>
           </div>
         </div>
 
@@ -468,7 +581,7 @@ export default function App() {
         {menuOpen && (
           <div style={{
             background: D.card, borderTop: `1px solid ${D.border}`,
-            padding: 16,
+            padding: 16, marginTop: 12,
           }}>
             {t.nav.map((item, i) => (
               <div key={i} onClick={() => scrollTo(sectionIds[i])} style={{
@@ -507,9 +620,9 @@ export default function App() {
           }} />
         ))}
 
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 24px", position: "relative", zIndex: 2 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
-            <div style={{ animation: "fadeUp 1s ease 0.3s both" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "80px 24px", position: "relative", zIndex: 2, width: "100%" }}>
+          <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+            <div className="hero-text" style={{ animation: "fadeUp 1s ease 0.3s both" }}>
               <div style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 background: `${D.accent}20`, border: `1px solid ${D.accent}40`,
@@ -521,7 +634,7 @@ export default function App() {
                 </span>
               </div>
               <h1 style={{
-                fontSize: "clamp(2.2rem, 4vw, 3.5rem)", fontWeight: 900, lineHeight: 1.2,
+                fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 900, lineHeight: 1.2,
                 marginBottom: 20, color: D.text,
               }}>
                 {t.hero.title.split(" ").map((w, i) => (
@@ -531,7 +644,7 @@ export default function App() {
               <p style={{ fontSize: 17, color: D.muted, lineHeight: 1.8, marginBottom: 36, maxWidth: 480 }}>
                 {t.hero.sub}
               </p>
-              <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+              <div className="hero-buttons" style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
                 <button className="btn-primary" onClick={() => scrollTo("loans")} style={{
                   background: `linear-gradient(135deg, ${D.accent}, ${D.accent2})`,
                   color: dark ? "#0a1628" : "#fff", border: "none",
@@ -550,7 +663,7 @@ export default function App() {
               </div>
 
               {/* Trust badges */}
-              <div style={{ display: "flex", gap: 16, marginTop: 48, flexWrap: "wrap" }}>
+              <div className="trust-badges" style={{ display: "flex", gap: 16, marginTop: 48, flexWrap: "wrap" }}>
                 {["🏛️ Govt. Registered", "✅ NGO Bureau Certified", "🌟 Award Winning"].map((b, i) => (
                   <div key={i} style={{
                     background: `${D.accent}15`, border: `1px solid ${D.accent}30`,
@@ -572,7 +685,7 @@ export default function App() {
                 backdropFilter: "blur(10px)",
               }}>
                 <div style={{ fontSize: 100, textAlign: "center", marginBottom: 24 }}>🏘️</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                   {t.stats.map((s, i) => (
                     <div key={i} style={{
                       background: D.card, borderRadius: 16, padding: 20,
@@ -598,8 +711,8 @@ export default function App() {
       {/* ── ABOUT ── */}
       <section id="about" style={{ padding: "100px 24px", background: D.bg }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader title={t.about.title} dark={dark} D={D} />
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", marginTop: 60 }}>
+          <SectionHeader title={t.about.title} D={D} />
+          <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center", marginTop: 60 }}>
             <div>
               <p style={{ fontSize: 17, color: D.muted, lineHeight: 2, marginBottom: 40 }}>{t.about.body}</p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
@@ -619,7 +732,7 @@ export default function App() {
                 ))}
               </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
               {t.stats.map((s, i) => (
                 <div key={i} className="card-hover" style={{
                   background: D.card, border: `1px solid ${D.border}`,
@@ -640,8 +753,8 @@ export default function App() {
       {/* ── LOAN PROGRAMS ── */}
       <section id="loans" style={{ padding: "100px 24px", background: D.surface }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader title={t.loan.title} sub={t.loan.sub} dark={dark} D={D} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24, marginTop: 60 }}>
+          <SectionHeader title={t.loan.title} sub={t.loan.sub} D={D} />
+          <div className="loan-cards" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginTop: 60 }}>
             {t.loan.types.map((loan, i) => (
               <div key={i} className="card-hover" style={{
                 background: D.card, border: `1px solid ${D.border}`,
@@ -680,7 +793,7 @@ export default function App() {
           {/* How to Apply */}
           <div style={{ marginTop: 80 }}>
             <h3 style={{ textAlign: "center", fontSize: 28, fontWeight: 800, marginBottom: 48, color: D.text }}>{t.loan.howTitle}</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24, position: "relative" }}>
+            <div className="steps-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24, position: "relative" }}>
               <div style={{
                 position: "absolute", top: "30%", left: "12.5%", right: "12.5%",
                 height: 2, background: `linear-gradient(90deg, ${D.accent}, ${D.accent2})`,
@@ -706,8 +819,8 @@ export default function App() {
       {/* ── VILLAGES ── */}
       <section id="villages" style={{ padding: "100px 24px", background: D.bg }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader title={t.villages.title} sub={t.villages.sub} dark={dark} D={D} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginTop: 60 }}>
+          <SectionHeader title={t.villages.title} sub={t.villages.sub} D={D} />
+          <div className="villages-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24, marginTop: 60 }}>
             {t.villages.list.map((v, i) => (
               <div key={i} className="card-hover" style={{
                 background: D.card, border: `1px solid ${D.border}`,
@@ -738,7 +851,6 @@ export default function App() {
                     <div style={{ fontSize: 12, color: D.muted, marginTop: 4 }}>{lang === "bn" ? "সুবিধাভোগী" : "Beneficiaries"}</div>
                   </div>
                 </div>
-                {/* Mini progress bar */}
                 <div style={{ marginTop: 20 }}>
                   <div style={{ background: `${D.border}`, borderRadius: 4, height: 6, overflow: "hidden" }}>
                     <div style={{
@@ -757,8 +869,8 @@ export default function App() {
       {/* ── IMPACT / STORIES ── */}
       <section id="impact" style={{ padding: "100px 24px", background: D.surface }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader title={t.impact.title} sub={t.impact.sub} dark={dark} D={D} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 32, marginTop: 60 }}>
+          <SectionHeader title={t.impact.title} sub={t.impact.sub} D={D} />
+          <div className="impact-cards" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 32, marginTop: 60 }}>
             {t.impact.stories.map((s, i) => (
               <div key={i} className="card-hover" style={{
                 background: D.card, border: `1px solid ${D.border}`,
@@ -797,8 +909,8 @@ export default function App() {
       {/* ── TEAM ── */}
       <section id="team" style={{ padding: "100px 24px", background: D.bg }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader title={t.team.title} sub={t.team.sub} dark={dark} D={D} />
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 24, marginTop: 60 }}>
+          <SectionHeader title={t.team.title} sub={t.team.sub} D={D} />
+          <div className="team-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 24, marginTop: 60 }}>
             {t.team.members.map((m, i) => (
               <div key={i} className="card-hover" style={{
                 background: D.card, border: `1px solid ${D.border}`,
@@ -821,10 +933,10 @@ export default function App() {
       {/* ── CONTACT ── */}
       <section id="contact" style={{ padding: "100px 24px", background: D.surface }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <SectionHeader title={t.contact.title} sub={t.contact.sub} dark={dark} D={D} />
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 60, marginTop: 60 }}>
+          <SectionHeader title={t.contact.title} sub={t.contact.sub} D={D} />
+          <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 60, marginTop: 60 }}>
             {/* Info */}
-            <div>
+            <div className="contact-info">
               {[
                 { icon: "📍", label: lang === "bn" ? "ঠিকানা" : "Address", value: t.contact.address },
                 { icon: "📞", label: lang === "bn" ? "ফোন" : "Phone", value: t.contact.phone },
@@ -858,7 +970,7 @@ export default function App() {
             </div>
 
             {/* Form */}
-            <div style={{ background: D.card, borderRadius: 28, padding: 40, border: `1px solid ${D.border}` }}>
+            <div className="contact-form" style={{ background: D.card, borderRadius: 28, padding: 40, border: `1px solid ${D.border}` }}>
               {formSent ? (
                 <div style={{ textAlign: "center", padding: 40 }}>
                   <div style={{ fontSize: 64, marginBottom: 20 }}>✅</div>
@@ -921,7 +1033,7 @@ export default function App() {
         padding: "60px 24px 30px", color: "rgba(255,255,255,0.7)",
       }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48, marginBottom: 48 }}>
+          <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 48, marginBottom: 48 }}>
             <div>
               <div style={{ fontSize: 22, fontWeight: 900, color: "#f0c040", marginBottom: 16 }}>{t.org}</div>
               <p style={{ fontSize: 14, lineHeight: 1.8, maxWidth: 280, marginBottom: 24 }}>{t.footer.about}</p>
@@ -983,21 +1095,6 @@ export default function App() {
         transform: showScroll ? "translateY(0) scale(1)" : "translateY(20px) scale(0.8)",
         pointerEvents: showScroll ? "all" : "none",
       }}>↑</button>
-
-      {/* ── RESPONSIVE ── */}
-      <style>{`
-        @media (max-width: 900px) {
-          .desktop-nav { display: none!important; }
-          .hamburger { display: flex!important; justify-content: center;
-        align-items: center; }
-        }
-        @media (max-width: 768px) {
-          [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr!important; }
-          [style*="grid-template-columns: 2fr 1fr 1fr 1fr"] { grid-template-columns: 1fr 1fr!important; }
-          [style*="grid-template-columns: 1fr 1.2fr"] { grid-template-columns: 1fr!important; }
-          [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: 1fr 1fr!important; }
-        }
-      `}</style>
     </div>
   );
 }
